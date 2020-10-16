@@ -1,10 +1,15 @@
 ---
 - name: Install and configure web service
+  gather_facts: no
   hosts:
     - serverc.lab.example.com
     - serverd.lab.example.com
 
   tasks:
+    - name: Ver los facts
+      debug:
+        var: ansible_facts
+
     - name: Install apache
       yum:
         name: apache2
