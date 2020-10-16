@@ -10,16 +10,29 @@
       debug:
         var: ansible_facts
 
-    - name: Install apache
+#    - name: Install apache
+#      yum:
+#        name: apache2
+#        state: latest
+
+    - name: Install {{ servidor }}
       yum:
-        name: apache2
+        name: "{{ servidor }}"
         state: latest
 
-    - name: Enable and start apache
+    - name: "{{ estado }} {{ servidor }}"
       service:
-        name: apache2
+        name: "{{ servidor }}"
         enabled: true
-        state: started
+        state: "{{ estado }}"
+
+
+
+ #   - name: Enable and start apache
+ #     service:
+ #       name: apache2
+ #       enabled: true
+ #       state: started
   
     - name: Install firewalld
       yum:
@@ -32,8 +45,14 @@
         enabled: true
         state: started
         
+#  handlers:
+#    - name: restart apache
+#      service:
+#        name: apache2
+#        state: restarted
+
   handlers:
-    - name: restart apache
+    - name: restart {{ servidor }}
       service:
-        name: apache2
+        name: "{{ servidor }}"
         state: restarted
